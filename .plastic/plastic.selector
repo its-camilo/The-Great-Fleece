@@ -1,4 +1,0 @@
-repository "The Great Fleece@camiloalejo2006@cloud"
-  path "/"
-    br "/main"
-    co "/main"
