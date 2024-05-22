@@ -6,14 +6,15 @@ using UnityEngine.AI;
 public class Player : MonoBehaviour
 {
     private NavMeshAgent agent;
+    private Animator anim;
+    private Vector3 target;
 
-    // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButton(0))
@@ -26,10 +27,19 @@ public class Player : MonoBehaviour
                 //Debug.Log("Hit: " + hitInfo.point);
 
                 agent.SetDestination(hitInfo.point);
+                anim.SetBool("Walk", true);
+                target = hitInfo.point;
 
                 //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 //cube.transform.position = hitInfo.point;
             }
+        }
+
+        float distance = Vector3.Distance(transform.position, target);
+
+        if (distance < 1f)
+        {
+            anim.SetBool("Walk", false);
         }
     }
 }
