@@ -11,10 +11,12 @@ public class GuardAI : MonoBehaviour
     private NavMeshAgent agent;
     private bool reverse;
     private bool targetReached;
+    private Animator anim;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -25,9 +27,30 @@ public class GuardAI : MonoBehaviour
 
             float distance = Vector3.Distance(transform.position, wayPoints[currentTarget].position);
 
+            if (distance < 1 && (currentTarget is 0 || currentTarget == wayPoints.Count - 1))
+            {
+                if (anim != null)
+                {
+                    anim.SetBool("Walk", false);
+                }
+            }
+
+            else
+            {
+                if (anim != null)
+                {
+                    anim.SetBool("Walk", true);
+                }
+            }
+
             if (distance < 1f && targetReached is false)
             {
-                if (currentTarget is 0 || currentTarget == wayPoints.Count - 1)
+                if (wayPoints.Count < 2)
+                {
+                    return;
+                }
+
+                if ((currentTarget is 0 || currentTarget == wayPoints.Count - 1) && wayPoints.Count > 1)
                 {
                     targetReached = true;
                     StartCoroutine(WaitBeforemoving());
@@ -59,12 +82,12 @@ public class GuardAI : MonoBehaviour
     {
         if (currentTarget is 0)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(Random.Range(2, 6));
         }
 
         else if (currentTarget == wayPoints.Count - 1)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(Random.Range(2, 6));
         }
 
         if (reverse)
