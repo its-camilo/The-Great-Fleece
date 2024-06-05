@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Eyes : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject gameOverCutscene;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.tag is "Player")
+        {
+            gameOverCutscene.SetActive(true);
+        }
     }
 }
