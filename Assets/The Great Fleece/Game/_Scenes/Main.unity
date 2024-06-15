@@ -3137,6 +3137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4d1822cf760094e807820273e4c2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 4347945360297560422, guid: 4df7d95edf071764caddaeee45ff3f53,
+    type: 3}
+  coinSoundEffect: {fileID: 8300000, guid: 7a03079805ab64c8ea844d80fdc43366, type: 3}
 --- !u!1 &132384955
 GameObject:
   m_ObjectHideFlags: 0

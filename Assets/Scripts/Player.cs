@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     private NavMeshAgent agent;
     private Animator anim;
     private Vector3 target;
+    public GameObject coinPrefab;
+    public AudioClip coinSoundEffect;
+    private bool coinTossed;
 
     void Start()
     {
@@ -41,5 +44,24 @@ public class Player : MonoBehaviour
         {
             anim.SetBool("Walk", false);
         }
+
+        if (Input.GetMouseButton(1) && !coinTossed)
+        {
+            Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+
+            if (Physics.Raycast(rayOrigin, out hitInfo))
+            {
+                coinTossed = true;
+                Instantiate(coinPrefab, hitInfo.point, Quaternion.identity);
+                AudioSource.PlayClipAtPoint(coinSoundEffect, transform.position);
+                SendAIToCoinSpot(hitInfo.point);
+            }
+        }
+    }
+
+    void SendAIToCoinSpot(Vector3 coinPos)
+    {
+        //
     }
 }
