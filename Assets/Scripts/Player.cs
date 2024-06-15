@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
 
             if (Physics.Raycast(rayOrigin, out hitInfo))
             {
+                anim.SetTrigger("Throw");
                 coinTossed = true;
                 Instantiate(coinPrefab, hitInfo.point, Quaternion.identity);
                 AudioSource.PlayClipAtPoint(coinSoundEffect, transform.position);
@@ -62,6 +63,17 @@ public class Player : MonoBehaviour
 
     void SendAIToCoinSpot(Vector3 coinPos)
     {
-        //
+        GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard1");
+
+        foreach (var guard in guards)
+        {
+            NavMeshAgent currentAgent = guard.GetComponent<NavMeshAgent>();
+            GuardAI currentGuard = guard.GetComponent<GuardAI>();
+            Animator currentAnim = currentAgent.GetComponent<Animator>();
+            currentGuard.coinTossed = true;
+            currentAgent.SetDestination(coinPos);
+            currentAnim.SetBool("Walk", true);
+            currentGuard.coinPos = coinPos;
+        }
     }
 }
