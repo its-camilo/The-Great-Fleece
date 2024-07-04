@@ -10,7 +10,18 @@ public class SecurityCamera : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            gameOverCutscene.SetActive(true);
+            MeshRenderer render = GetComponent<MeshRenderer>();
+            Color color = new Color(.6f, .1f, .1f, .3f);
+            render.material.SetColor("_TintColor", color);
+            StartCoroutine(AlertRoutine());
         }
     }
+
+    IEnumerator AlertRoutine()
+    {
+        yield return new WaitForSeconds(.5f);
+        gameOverCutscene.SetActive(true);
+    }
 }
+
+
