@@ -8,9 +8,10 @@ public class GrabKeyCardActivation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag is "Player")
         {
             sleepingGuardCutscene.SetActive(true);
+            GameManager.Instance.HasCard = true;
         }
     }
 }
