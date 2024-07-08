@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,8 +25,19 @@ public class GameManager : MonoBehaviour
         set;
     }
 
+    public PlayableDirector introCutscene;
+
     private void Awake()
     {
         instance = this;
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            introCutscene.time = 60f;
+            AudioManager.Instance.PlayMusic();
+        }
     }
 }

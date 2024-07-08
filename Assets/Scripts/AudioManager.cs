@@ -22,4 +22,11 @@ public class AudioManager : MonoBehaviour
     {
         instance = this;
     }
+
+    public AudioSource music;
+
+    public void PlayMusic()
+    {
+        music.Play();
+    }
 }
